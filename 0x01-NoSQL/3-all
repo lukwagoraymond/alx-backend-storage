@@ -1,0 +1,3 @@
+// Script Lists all Documents in the collection <school>
+db.school.find()
+

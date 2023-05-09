@@ -1,0 +1,3 @@
+# Declare files that will always have LF line endings on checkout.
+**/*.sql text eol=lf
+**/*.py text eol=lf
