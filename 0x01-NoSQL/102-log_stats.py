@@ -11,7 +11,7 @@ def nginx_stat_count():
     nginx_collection = client.logs.nginx
 
     collectn_count = nginx_collection.count_documents({})
-    print(f'{collectn_count}')
+    print(f'{collectn_count} logs')
     print('Methods:')
     methods_list = ["GET", "POST", "PUT", "PATCH", "DELETE"]
     for method in methods_list:
