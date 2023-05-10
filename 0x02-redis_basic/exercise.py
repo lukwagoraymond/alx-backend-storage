@@ -44,8 +44,8 @@ def replay(method: Callable):
     function"""
     method_key = method.__qualname__
     r = redis.Redis()
-    input_data = method_key + ':inputs'
-    output_data = method_key + ':outputs'
+    input_data = method_key + ":inputs"
+    output_data = method_key + ":outputs"
     method_count = r.get(method_key).decode('utf-8')
     print(f'{method_key} was called {method_count} times:')
     input_list = r.lrange(input_data, 0, -1)
