@@ -52,7 +52,7 @@ def replay(method: Callable):
     output_list = r.lrange(output_data, 0, -1)
     for key, val in list(zip(input_list, output_list)):
         attr, val = key.decode('utf-8'), val.decode('utf-8')
-        print(f'{method_key}(*({attr})) -> {val}')
+        print(f'{method_key}(*{attr}) -> {val}')
 
 
 class Cache:
