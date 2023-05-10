@@ -25,13 +25,13 @@ def call_history(method: Callable) -> Callable:
     """Stores history of inputs & outputs to
     lists <:input> & <:output>"""
     method_key = method.__qualname__
-    input_data = method_key + ':inputs'
-    output_data = method_key + ':outputs'
+    input_data = method_key + ":inputs"
+    output_data = method_key + ":outputs"
 
     @wraps(method)
     def wrapper(self, *args, **kwargs):
         """Wrapper function implementing storage"""
-        self._redis.rpush(input_data, str(*args))
+        self._redis.rpush(input_data, str(args))
         output_value = method(self, *args, **kwargs)
         self._redis.rpush(output_data, str(output_value))
         return output_value
