@@ -7,21 +7,23 @@ import requests
 from typing import Callable
 from functools import wraps
 
+r = redis.Redis()
+
 
 def data_counter(method: Callable) -> Callable:
     """Caches response of fetched data & if
     successful increments count key by 1"""
 
     @wraps(method)
-    def wrapper(url) -> str:
+    def wrapper(url):
         """The wrapper function"""
-        r = redis.Redis()
         response = r.get(f'response:{url}')
         if response:
             return response.decode('utf-8')
         res_content = method(url)
         r.incr(f'count:{url}')
-        r.setex(f'response:{url}', 10, res_content)
+        r.set(f'response:{url}', res_content, ex=10)
+        r.expire(f'response:{url}', 10)
         return res_content
 
     return wrapper
@@ -37,4 +39,4 @@ def get_page(url: str) -> str:
 
 
 if __name__ == "__main__":
-    get_page('http://slowwly.robertomurray.co.uk/')
+    get_page('http://google.co.uk/')
